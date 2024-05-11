@@ -1,0 +1,2 @@
+2024-05-08 00:07:19.565 +03:00 [WRN] This is a warning log message
+2024-05-08 00:07:57.282 +03:00 [WRN] This is a warning log message
