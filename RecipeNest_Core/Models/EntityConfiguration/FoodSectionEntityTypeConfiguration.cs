@@ -26,7 +26,7 @@ namespace RecipeNest_Core.Models.EntityConfiguration
                 .HasMaxLength(1000);// Set maximum length for Description
 
             // Add a unique index for the Name property
-            builder.HasIndex(fs=> fs.Name).IsUnique();
+            builder.HasIndex(fs => fs.Name).IsUnique();
 
             // Set default values for CreationDateTime and IsDeleted
             builder.Property(fs => fs.CreationDateTime).IsRequired().HasDefaultValue(DateTime.Now);

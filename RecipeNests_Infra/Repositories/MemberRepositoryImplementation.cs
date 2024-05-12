@@ -26,22 +26,15 @@ namespace RecipeNests_Infra.Repositories
             try
             {
 
-                // إنشاء كائن Card وتعيين القيم
-                var card = new Card
-                {
-                    Type = dto.Type,
-                    Price = dto.Price,
-                    PaymentMethod = dto.PaymentMethod
-                };
+
 
                 // إنشاء كائن Donation وتعيين القيم
                 var donation = new Donation
                 {
-                    Card = card,
+                    
                 };
 
                 // إضافة الكائنات الجديدة إلى قاعدة البيانات
-                _context.Cards.Add(card);
                 _context.Donations.Add(donation);
                 await _context.SaveChangesAsync();
 

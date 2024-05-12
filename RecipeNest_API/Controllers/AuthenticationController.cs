@@ -42,6 +42,21 @@ namespace RecipeNest_API.Controllers
 
             return result.ToString();
         }
+
+        /// <summary>
+        /// Login to get an API key.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST api/LoginToGetApiKey
+        ///     {
+        ///        "Username": "your_username",
+        ///        "Password": "your_password"
+        ///     }
+        /// </remarks>
+        /// <param name="dto">The DTO containing the username and password for login.</param>
+        /// <returns>An IActionResult indicating the result of the operation.</returns>
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> LoginToGetApiKey(CreateLoginDTO dto)
@@ -70,7 +85,20 @@ namespace RecipeNest_API.Controllers
         }
 
 
-
+        /// <summary>
+        /// Generate a JWT token.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST api/GenerateJWTToken
+        ///     {
+        ///        "Username": "your_username",
+        ///        "Password": "your_password"
+        ///     }
+        /// </remarks>
+        /// <param name="dto">The DTO containing the username and password for authentication.</param>
+        /// <returns>An IActionResult containing the JWT token.</returns>
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> GenerateJWTToken(LoginRequestDTO dto)

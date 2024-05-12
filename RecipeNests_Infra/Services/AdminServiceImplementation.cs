@@ -106,22 +106,16 @@ namespace RecipeNests_Infra.Services
             else
             {
                 throw new Exception("No reviews were found. Please try again later.");
-
             }
         }
 
         public async Task<DonationRecordDTO> GetDonationRecordById(int donationId)
         {
             var donationRecord = await _adminRepositoryInterface.GetDonationRecordById(donationId);
-            if (donationRecord != null)
-            {
-                return donationRecord;
-            }
-            else
-            {
-                throw new Exception($"No donation was found with ID: {donationId}. Please check the ID and try again.");
-            }
+            return donationRecord ?? throw new Exception($"No donation was found with ID: {donationId}. Please check the ID and try again.");
         }
+
+
         public async Task<List<DonationRecordDTO>> GetDonationRecordByType(RecipeNestLookups.CardType cardType)
         {
             var donationRecord = await _adminRepositoryInterface.GetDonationRecordByType(cardType);
@@ -155,11 +149,11 @@ namespace RecipeNests_Infra.Services
             switch (foodSection)
             {
                 case HttpStatusCode.NotFound:
-                    return "Food Section not found.";
+                    return "Food section not found.";
                 case HttpStatusCode.OK:
-                    return "Food Section updated successfully.";
+                    return "Updated successfully.";
                 case HttpStatusCode.Found:
-                    return "Food Section is already exist.";
+                    return "name already exists for another section.";
                 default:
                     return $"Failed to update Food Section updated: {foodSection}";
 

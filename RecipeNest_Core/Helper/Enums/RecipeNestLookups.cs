@@ -22,9 +22,10 @@ namespace RecipeNest_Core.Helper.Enums
             UserNameErroe,
             EmailError,
             PasswordError,
-            NotNullError,
+            NotNull,
             UserTypeError,
-            LoginError
+            LoginError,
+            BadRequest
         }
         public enum CardType
         {

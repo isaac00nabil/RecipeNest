@@ -202,15 +202,12 @@ namespace RecipeNests_Infra.Repositories
             if (donationRecord != null)
             {
                 var dishRecord = await (from d in _context.Dishes
-                                        join fs in _context.FoodSections
-                                        on d.FoodSection.FoodSectionId equals fs.FoodSectionId
                                         where d.DishId == dishId
                                         select new DishRecordDTO
                                         {
                                             DishId = d.DishId,
                                             Name = d.Name,
                                             Description = d.Description,
-                                            FoodSectionId = fs.FoodSectionId,
                                             Steps = d.Steps,
                                             Ingredients = d.Ingredients,
                                             CreationDateTime = d.CreationDateTime,
@@ -227,31 +224,20 @@ namespace RecipeNests_Infra.Repositories
 
         public async Task<DishRecordDTO> GetDishRecordByName(string dishName)
         {
-            var donationRecord = await _context.Dishes.FirstOrDefaultAsync(d => d.Name == dishName);
-            if (donationRecord != null)
-            {
-                var dishRecord = await (from d in _context.Dishes
-                                        join fs in _context.FoodSections
-                                        on d.FoodSection.FoodSectionId equals fs.FoodSectionId
-                                        where d.Name == dishName
-                                        select new DishRecordDTO
-                                        {
-                                            DishId = d.DishId,
-                                            Name = d.Name,
-                                            Description = d.Description,
-                                            FoodSectionId = fs.FoodSectionId,
-                                            Steps = d.Steps,
-                                            Ingredients = d.Ingredients,
-                                            CreationDateTime = d.CreationDateTime,
-                                            IsDeleted = d.IsDeleted,
-                                        }).FirstOrDefaultAsync();
+            var dishRecord = await (from d in _context.Dishes
+                                    where d.Name == dishName
+                                    select new DishRecordDTO
+                                    {
+                                        DishId = d.DishId,
+                                        Name = d.Name,
+                                        Description = d.Description,
+                                        Steps = d.Steps,
+                                        Ingredients = d.Ingredients,
+                                        CreationDateTime = d.CreationDateTime,
+                                        IsDeleted = d.IsDeleted,
+                                    }).FirstOrDefaultAsync();
 
-                return dishRecord;
-            }
-            else
-            {
-                return null;
-            }
+            return dishRecord;
         }
 
         public async Task<UserRecordDTO> GetMemberById(int memberId)
@@ -356,43 +342,32 @@ namespace RecipeNests_Infra.Repositories
             try
             {
                 dto.Email = dto.Email.Trim().ToLower();
-                var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == dto.Email);
-                if (existingUser != null && existingUser.UserId != dto.UserId)
+
+                // Check if the email is already in use by another user
+                var emailInUse = await _context.Users.AnyAsync(u => u.Email.ToLower() == dto.Email && u.UserId != dto.UserId);
+                if (emailInUse)
                 {
                     return HttpStatusCode.Found; // Email is already in use
                 }
 
-                if (dto.Password.Length < 8 || dto.Password.Length > 20)
+                // Update the user profile
+                var existingUser = await _context.Users.FindAsync(dto.UserId);
+                if (existingUser != null)
                 {
-                    throw new Exception("Password must be between 8 and 20 characters.");
+                    existingUser.ProfileImagePath = dto.ProfileImagePath;
+                    existingUser.FirstName = dto.FirstName.ToLower();
+                    existingUser.LastName = dto.LastName.ToLower();
+                    existingUser.Email = dto.Email.ToLower();
+
+                    _context.Update(existingUser);
                 }
 
-                User user = await _context.Users.FindAsync(dto.UserId);
-                if (user == null)
-                {
-                    return HttpStatusCode.NotFound;
-                }
-
-
-                user.FirstName = dto.FirstName.ToLower();
-                user.LastName = dto.LastName.ToLower();
-                user.Email = dto.Email.ToLower();
-                await _context.AddAsync(user);
-                await _context.SaveChangesAsync();
-
-                Login login = await _context.Logins.FirstOrDefaultAsync(l => l.User.UserId == dto.UserId);
+                // Update the login username if it exists
+                var login = await _context.Logins.FirstOrDefaultAsync(l => l.User.UserId == dto.UserId);
                 if (login != null)
                 {
                     login.Username = dto.Email;
-                    login.Password = dto.Password;
-                    login.User = user;
-                    await _context.AddAsync(login);
-                    await _context.SaveChangesAsync();
-                }
-
-                else
-                {
-                    return HttpStatusCode.NoContent;
+                    _context.Update(login);
                 }
 
                 await _context.SaveChangesAsync();
@@ -400,10 +375,11 @@ namespace RecipeNests_Infra.Repositories
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "An error occurred while Update Account");
+                Log.Error(ex, "An error occurred while updating the account");
                 return HttpStatusCode.BadRequest;
             }
         }
+
 
         public async Task<HttpStatusCode> UpdateDish(CreateOrUpdateDishDTO dto, bool isAdmin = false)
         {

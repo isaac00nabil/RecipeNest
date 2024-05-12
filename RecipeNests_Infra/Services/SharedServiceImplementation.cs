@@ -178,7 +178,7 @@ namespace RecipeNests_Infra.Services
             }
             else
             {
-                throw new Exception ("No dish records found");
+                throw new Exception("No dish records found");
             }
         }
 
@@ -295,12 +295,16 @@ namespace RecipeNests_Infra.Services
             var updateAccount = await _sharedRepositoryInterface.UpdateAccount(dto);
             if (updateAccount == HttpStatusCode.OK)
             {
-                return "Update account successful";
+                throw new Exception("Update account successful");
 
+            }
+            else if (updateAccount == HttpStatusCode.Found)
+            {
+                throw new Exception("Email is already in use");
             }
             else
             {
-                return "Update account failed";
+                throw new Exception("Update account failed");
             }
         }
 

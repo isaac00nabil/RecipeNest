@@ -206,33 +206,39 @@ namespace RecipeNests_Infra.Repositories
 
         public async Task<HttpStatusCode> UpdateFoodSection(CreateOrUpdateFoodSectionDTO dto)
         {
-            var foodSectionId = await _context.FoodSections.FirstOrDefaultAsync(f => f.FoodSectionId == dto.FoodSectionId);
-
-            if (foodSectionId == null)
-            {
-                return HttpStatusCode.NotFound;
-            }
-
-            var foodSectionName = await _context.FoodSections.FirstOrDefaultAsync(f => f.Name == dto.Name);
-            if (foodSectionName == null)
-            {
-                return HttpStatusCode.Found;
-            }
-
-            foodSectionId.Name = dto.Name;
-            foodSectionId.Description = dto.Description;
-
             try
             {
-                _context.Update(foodSectionId);
+                var foodSection = await _context.FoodSections.FirstOrDefaultAsync(f => f.FoodSectionId == dto.FoodSectionId);
+                if (foodSection == null)
+                {
+                    return HttpStatusCode.NotFound; // Food section not found
+                }
+
+                // Check if the new name already exists for another section
+                var existingFoodSectionWithName = await _context.FoodSections.AnyAsync(f => f.Name == dto.Name && f.FoodSectionId != dto.FoodSectionId);
+                if (existingFoodSectionWithName)
+                {
+                    return HttpStatusCode.Found; // Name already exists
+                }
+
+                // Update the food section
+                foodSection.Name = dto.Name;
+                foodSection.Description = dto.Description;
+
+                _context.Update(foodSection);
                 await _context.SaveChangesAsync();
-                return HttpStatusCode.OK;
+                return HttpStatusCode.OK; // Updated successfully
             }
-            catch
+            catch (DbUpdateException)
             {
-                return HttpStatusCode.ExpectationFailed;
+                return HttpStatusCode.ExpectationFailed; // Database update exception
+            }
+            catch (Exception)
+            {
+                return HttpStatusCode.InternalServerError; // Other unexpected exceptions
             }
         }
+
     }
 }
 

@@ -232,7 +232,7 @@ namespace RecipeNest_API.Controllers
         }
 
         /// <summary>
-        /// Retrieve a list of all dish records.
+        /// Retrieve a list of all Donation records.
         /// </summary>
         /// <remarks>
         /// Sample request:

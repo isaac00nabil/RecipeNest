@@ -54,8 +54,15 @@ namespace RecipeNest_API.Controllers
                     return Unauthorized("Invalid API Key");
                 }
 
-                var createAccount = await _adminService.CreateNewFoodSection(dto);
-                return Ok(createAccount);
+                var createNewSectiont = await _adminService.CreateNewFoodSection(dto);
+                if (createNewSectiont.Contains("successful"))
+                {
+                    return Ok(createNewSectiont);
+                }
+                else
+                {
+                    return StatusCode(500, createNewSectiont);
+                }
             }
             catch (Exception ex)
             {
@@ -89,9 +96,16 @@ namespace RecipeNest_API.Controllers
                 {
                     return Unauthorized("Invalid API Key");
                 }
-                var result = await _adminService.GetAllMember();
 
-                return Ok(result);
+                var memberList = await _adminService.GetAllMember();
+                if (memberList is string)
+                {
+                    return NotFound(memberList);
+                }
+                else
+                {
+                    return Ok(memberList);
+                }
             }
             catch (Exception ex)
             {
@@ -124,8 +138,15 @@ namespace RecipeNest_API.Controllers
                 {
                     return Unauthorized("Invalid API Key");
                 }
-                var result = await _adminService.GetAllReviewRecord();
-                return Ok(result);
+                var reviewList = await _adminService.GetAllReviewRecord();
+                if (reviewList?.Count > 0)
+                {
+                    return Ok(reviewList);
+                }
+                else
+                {
+                    return NotFound(reviewList);
+                }
 
             }
             catch (Exception ex)
@@ -160,24 +181,21 @@ namespace RecipeNest_API.Controllers
                 {
                     return Unauthorized("Invalid API Key");
                 }
+
+                var donationRecord = await _adminService.GetDonationRecordById(donationId);
+                if (donationRecord != null)
+                {
+                    return Ok(donationRecord);
+                }
                 else
                 {
-                    var donationRecord = await _adminService.GetDonationRecordById(donationId);
-                    if (donationRecord != null)
-                    {
-                        return Ok(donationRecord);
-                    }
-                    else
-                    {
-                        return StatusCode(404, donationRecord);
-
-                    }
+                    return NotFound($"No donation was found with ID: {donationId}. Please check the ID and try again.");
                 }
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "An error occurred while get donation by ID");
-                return BadRequest(ex.Message);
+                Log.Error(ex, "An error occurred while getting donation record by ID");
+                return StatusCode(500, "An error occurred while retrieving donation record.");
             }
         }
 
@@ -312,7 +330,7 @@ namespace RecipeNest_API.Controllers
                     return Unauthorized("Invalid API Key");
                 }
                 var review = await _adminService.GetReviewRecordById(reviewId);
-                if (review != null )
+                if (review != null)
                 {
                     return Ok(review);
                 }
@@ -345,6 +363,8 @@ namespace RecipeNest_API.Controllers
         /// <param name="ApiKey">The API key for authentication.</param>
         /// <param name="dto">The DTO containing the updated information for the food section.</param>
         /// <returns>An IActionResult indicating the result of the operation.</returns>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>      
         [HttpPut]
         [Route("[action]")]
         public async Task<IActionResult> UpdateFoodSection([FromHeader] string ApiKey, [FromBody] CreateOrUpdateFoodSectionDTO dto)

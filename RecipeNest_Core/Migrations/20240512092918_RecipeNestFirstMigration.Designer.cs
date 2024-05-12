@@ -12,8 +12,8 @@ using RecipeNest_Core.Models.Context;
 namespace RecipeNest_Core.Migrations
 {
     [DbContext(typeof(RecipeNestDbContext))]
-    [Migration("20240511162802_sd")]
-    partial class sd
+    [Migration("20240512092918_RecipeNestFirstMigration")]
+    partial class RecipeNestFirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace RecipeNest_Core.Migrations
                     b.Property<DateTime>("CreationDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 11, 19, 28, 2, 479, DateTimeKind.Local).AddTicks(1810));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 12, 29, 18, 269, DateTimeKind.Local).AddTicks(3833));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -83,7 +83,7 @@ namespace RecipeNest_Core.Migrations
                     b.Property<DateTime>("CreationDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 11, 19, 28, 2, 487, DateTimeKind.Local).AddTicks(8816));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 12, 29, 18, 270, DateTimeKind.Local).AddTicks(5275));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -145,7 +145,7 @@ namespace RecipeNest_Core.Migrations
                     b.Property<DateTime>("CreationDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 11, 19, 28, 2, 492, DateTimeKind.Local).AddTicks(3998));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 12, 29, 18, 271, DateTimeKind.Local).AddTicks(429));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -182,7 +182,7 @@ namespace RecipeNest_Core.Migrations
                     b.Property<DateTime>("CreationDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 11, 19, 28, 2, 503, DateTimeKind.Local).AddTicks(9011));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 12, 29, 18, 272, DateTimeKind.Local).AddTicks(5034));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -226,7 +226,7 @@ namespace RecipeNest_Core.Migrations
                     b.Property<DateTime>("CreationDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 11, 19, 28, 2, 506, DateTimeKind.Local).AddTicks(5286));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 12, 29, 18, 272, DateTimeKind.Local).AddTicks(8285));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -275,7 +275,7 @@ namespace RecipeNest_Core.Migrations
                     b.Property<DateTime>("CreationDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 11, 19, 28, 2, 510, DateTimeKind.Local).AddTicks(9339));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 12, 29, 18, 273, DateTimeKind.Local).AddTicks(3019));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -311,7 +311,7 @@ namespace RecipeNest_Core.Migrations
                     b.Property<DateTime>("CreationDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 11, 19, 28, 2, 514, DateTimeKind.Local).AddTicks(262));
+                        .HasDefaultValue(new DateTime(2024, 5, 12, 12, 29, 18, 273, DateTimeKind.Local).AddTicks(6353));
 
                     b.Property<string>("Email")
                         .IsRequired()

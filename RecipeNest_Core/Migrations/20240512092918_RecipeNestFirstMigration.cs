@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RecipeNest_Core.Migrations
 {
     /// <inheritdoc />
-    public partial class sd : Migration
+    public partial class RecipeNestFirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,7 @@ namespace RecipeNest_Core.Migrations
                     Price = table.Column<float>(type: "real", nullable: false),
                     Point = table.Column<float>(type: "real", nullable: false),
                     PaymentMethod = table.Column<int>(type: "int", nullable: false),
-                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 11, 19, 28, 2, 479, DateTimeKind.Local).AddTicks(1810)),
+                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 12, 12, 29, 18, 269, DateTimeKind.Local).AddTicks(3833)),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -44,7 +44,7 @@ namespace RecipeNest_Core.Migrations
                     LastName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     IsAdmin = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 11, 19, 28, 2, 514, DateTimeKind.Local).AddTicks(262)),
+                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 12, 12, 29, 18, 273, DateTimeKind.Local).AddTicks(6353)),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -65,7 +65,7 @@ namespace RecipeNest_Core.Migrations
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     CardId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true),
-                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 11, 19, 28, 2, 492, DateTimeKind.Local).AddTicks(3998)),
+                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 12, 12, 29, 18, 271, DateTimeKind.Local).AddTicks(429)),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -92,7 +92,7 @@ namespace RecipeNest_Core.Migrations
                     Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
-                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 11, 19, 28, 2, 503, DateTimeKind.Local).AddTicks(9011)),
+                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 12, 12, 29, 18, 272, DateTimeKind.Local).AddTicks(5034)),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -115,7 +115,7 @@ namespace RecipeNest_Core.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ApiKey = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true),
-                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 11, 19, 28, 2, 506, DateTimeKind.Local).AddTicks(5286)),
+                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 12, 12, 29, 18, 272, DateTimeKind.Local).AddTicks(8285)),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -138,7 +138,7 @@ namespace RecipeNest_Core.Migrations
                     Rating = table.Column<float>(type: "real", nullable: false, defaultValue: 0f),
                     Comment = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true),
-                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 11, 19, 28, 2, 510, DateTimeKind.Local).AddTicks(9339)),
+                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 12, 12, 29, 18, 273, DateTimeKind.Local).AddTicks(3019)),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -165,7 +165,7 @@ namespace RecipeNest_Core.Migrations
                     Ingredients = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     FoodSectionId = table.Column<int>(type: "int", nullable: true),
-                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 11, 19, 28, 2, 487, DateTimeKind.Local).AddTicks(8816)),
+                    CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 12, 12, 29, 18, 270, DateTimeKind.Local).AddTicks(5275)),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>

@@ -1,0 +1,4 @@
+2024-05-12 12:29:17.304 +03:00 [INF] This is an information log message
+2024-05-12 12:29:27.016 +03:00 [INF] This is an information log message
+2024-05-12 12:29:39.956 +03:00 [INF] This is an information log message
+2024-05-12 12:46:56.910 +03:00 [INF] This is an information log message
